@@ -1,0 +1,9 @@
+<Config>
+
+<Resources>
+	<ImageResources>/Users/lcballa44/Desktop/DevApp/GameData/Resources/Images</ImageResources>
+	<TextureResources>/Users/lcballa44/Desktop/DevApp/GameData/Resources/Textures</TextureResources>
+	<AudioResources>/Users/lcballa44/Desktop/DevApp/GameData/Resources/Audio</AudioResources>
+</Resources>
+
+</Config>

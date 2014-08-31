@@ -1,0 +1,103 @@
+TTicTacToe
+v6
+r1
+cCheck dependencies
+cCompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o /Users/lcballa44/Projects/TicTacToe/src/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/SDKSettings.plist
+c00000000528690BA000000000000044C
+t1384550586
+s1100
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/CoreServices/SystemVersion.plist
+c00000000531E3FD100000000000001DE
+t1394491345
+s478
+
+N/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/5.1/include/module.map
+c00000000531E3FD30000000000000ADC
+t1394491347
+s2780
+
+N/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o
+t2
+s0
+
+N/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o
+t2
+s0
+
+N/Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp
+c0000000053F40F720000000000000E8E
+t1408503666
+s3726
+
+N/Users/lcballa44/Projects/TicTacToe/src/main.cpp
+c0000000053F40D5900000000000002A9
+t1408503129
+s681
+
+CBuild AST from /Users/lcballa44/Projects/TicTacToe/TicTacToe/TicTacToe/main.cpp
+r0
+
+CBuild AST from /Users/lcballa44/Projects/TicTacToe/src/GameState.cpp
+r0
+
+CBuild AST from /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp
+r0
+
+CBuild AST from /Users/lcballa44/Projects/TicTacToe/src/main.cpp
+r0
+
+CCheck dependencies
+r0
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciese8121a28d6b2b941^bd561e28d6b2b941^---0#1#1#--18"Check dependencies36"6DD210C6-F6EE-4FD2-BCC7-BBF5D71CDA8C-
+
+CCompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/GameState.o /Users/lcballa44/Projects/TicTacToe/src/GameState.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+r0
+
+CCompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s431150632.119646
+e431150632.804564
+r0
+xCompileC
+xBuild/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o
+x/Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+oIn file included from /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp:13:
+o/Users/lcballa44/Projects/TicTacToe/src/MainMenu.h:17:10: fatal error: 'State.h' file not found
+o#include "State.h"
+o         ^
+o1 error generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection60"Compile /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp214"CompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compilerccb31e28d6b2b941^15fdcd28d6b2b941^-224"In file included from /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp:13:/Users/lcballa44/Projects/TicTacToe/src/MainMenu.h:17:10: fatal error: 'State.h' file not found#include "State.h"         ^1 error generated.1(36%IDEClangDiagnosticActivityLogMessage2@24"'State.h' file not found-431150632#18446744073709551615#0#1(2@78"In file included from /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp:13:-431150632#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@59"file:///Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp0000000000000000^12#9#12#9#151#0#21"Apple LLVM 5.1 Notice--2#27"com.apple.dt.IDE.diagnostic3@57"file:///Users/lcballa44/Projects/TicTacToe/src/MainMenu.h0000000000000000^16#9#16#9#228#0#29"Lexical or Preprocessor Issue--0#0#1#-19%DVTDocumentLocation4@59"file:///Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp0000000000000000^3102"CompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/lcballa44/Projects/TicTacToe/TicTacToe    export LANG=en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -stdlib=libc++ -fmodules -fmodules-cache-path=/Users/lcballa44/Projects/TicTacToe/TicTacToe/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.9 -g -fvisibility-inlines-hidden -Wno-sign-conversion -iquote /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-generated-files.hmap -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-own-target-headers.hmap -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-all-target-headers.hmap -iquote /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-project-headers.hmap -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Products/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/DerivedSources/x86_64 -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/DerivedSources -F/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Products/Debug -MMD -MT dependencies -MF /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.d --serialize-diagnostics /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.dia -c /Users/lcballa44/Projects/TicTacToe/src/MainMenu.cpp -o /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/MainMenu.o36"B4BA637A-5722-40F1-8D37-D9A94DC5EBE6-
+b0558C1BF-9C9D-4847-AEC6-1C90462ED5B3
+
+CCompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o /Users/lcballa44/Projects/TicTacToe/TicTacToe/TicTacToe/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+r0
+
+CCompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o /Users/lcballa44/Projects/TicTacToe/src/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s431150632.119437
+e431150632.906129
+r0
+xCompileC
+xBuild/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o
+x/Users/lcballa44/Projects/TicTacToe/src/main.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+oIn file included from /Users/lcballa44/Projects/TicTacToe/src/main.cpp:3:
+o/Users/lcballa44/Projects/TicTacToe/TicTacToe/TicTacToe/../../libs/n8_Game/include/Game.h:15:10: fatal error: 'SDL2/SDL.h' file not found
+o#include <SDL2/SDL.h>
+o         ^
+o1 error generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Compile /Users/lcballa44/Projects/TicTacToe/src/main.cpp206"CompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o /Users/lcballa44/Projects/TicTacToe/src/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler9ae91e28d6b2b941^6807e828d6b2b941^-264"In file included from /Users/lcballa44/Projects/TicTacToe/src/main.cpp:3:/Users/lcballa44/Projects/TicTacToe/TicTacToe/TicTacToe/../../libs/n8_Game/include/Game.h:15:10: fatal error: 'SDL2/SDL.h' file not found#include <SDL2/SDL.h>         ^1 error generated.-0#0#1#-19%DVTDocumentLocation2@55"file:///Users/lcballa44/Projects/TicTacToe/src/main.cpp0000000000000000^3078"CompileC Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o /Users/lcballa44/Projects/TicTacToe/src/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/lcballa44/Projects/TicTacToe/TicTacToe    export LANG=en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -stdlib=libc++ -fmodules -fmodules-cache-path=/Users/lcballa44/Projects/TicTacToe/TicTacToe/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.9 -g -fvisibility-inlines-hidden -Wno-sign-conversion -iquote /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-generated-files.hmap -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-own-target-headers.hmap -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-all-target-headers.hmap -iquote /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/TicTacToe-project-headers.hmap -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Products/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/DerivedSources/x86_64 -I/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/DerivedSources -F/Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Products/Debug -MMD -MT dependencies -MF /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.dia -c /Users/lcballa44/Projects/TicTacToe/src/main.cpp -o /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Intermediates/TicTacToe.build/Debug/TicTacToe.build/Objects-normal/x86_64/main.o36"11194185-8134-4B1E-9C22-86F91CC9BF94-
+b0558C1BF-9C9D-4847-AEC6-1C90462ED5B3
+
+CLd /Users/lcballa44/Projects/TicTacToe/TicTacToe/Build/Products/Debug/TicTacToe normal x86_64
+r0
+

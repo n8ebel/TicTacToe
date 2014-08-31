@@ -1,0 +1,30 @@
+<Resources>
+    
+    <ImageResources>
+        <Image>goo.jpg<ID>goo</ID></Image>
+        <Image>foo.png<ID>foo</ID></Image>
+        <Image>sayain2.png<ID>sayain2</ID></Image>
+        <Image>menu.png<ID>menu</ID></Image>
+    </ImageResources>
+    
+    <TextureResources>
+        <Texture>sayain2.png<ID>sayainTexture</ID></Texture>
+    </TextureResources>
+    
+    <MusicResources>
+        <Music>beat.wav<ID>beat</ID></Music>
+    </MusicResources>
+    
+    <SoundEffectResources>
+        <SoundEffect>scratch.wav<ID>scratch</ID></SoundEffect>
+    </SoundEffectResources>
+    
+    <FontResources>
+        <Font>stocky.ttf<Size>24</Size>
+            <ID>stocky24</ID>
+        </Font>
+    </FontResources>
+    
+    
+    
+</Resources>
