@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 n8Tech. All rights reserved.
 //
 
-#ifndef DevApp_GameValues_h
-#define DevApp_GameValues_h
+#ifndef GAME_VALUES_H
+#define GAME_VALUES_H
 
 #define Test 1
 #define Test2 2
 
-#endif
+#endif // GAME_VALUES_H

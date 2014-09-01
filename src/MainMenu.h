@@ -8,8 +8,8 @@
  *
  */
 
-#ifndef __goobar__GameState__
-#define __goobar__GameState__
+#ifndef MAIN_MENU_H
+#define MAIN_MENU_H
 
 #include <iostream>
 #include <vector>
@@ -53,4 +53,4 @@ private:
     n8::PushStateCommand m_pushStateCommand;
     
 };
-#endif
+#endif // MAIN_MENU_H

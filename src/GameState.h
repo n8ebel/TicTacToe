@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 n8Tech. All rights reserved.
 //
 
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef GAME_STATE_H
+#define GAME_STATE_H
 
 #include <iostream>
 
@@ -34,4 +34,4 @@ private:
     
 };
 
-#endif /* defined(__goobar__TestState2__) */
+#endif // GAME_STATE_H
