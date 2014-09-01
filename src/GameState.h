@@ -29,7 +29,7 @@ private:
     virtual void CreateEntities();
     
     n8::InputService* m_inputService;
-    
+    n8::RenderService* m_renderService;
     n8::PopStateCommand m_popStateCommand;
     
 };
