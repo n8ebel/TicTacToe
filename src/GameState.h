@@ -32,6 +32,23 @@ private:
     n8::RenderService* m_renderService;
     n8::PopStateCommand m_popStateCommand;
     
+    n8::Font* m_font;
+    gui::GUI* m_gui;
+    
+    gui::Button* m_buttonTopLeft;
+    gui::Button* m_buttonTopMiddle;
+    gui::Button* m_buttonTopRight;
+    
+    gui::Button* m_buttonMiddleLeft;
+    gui::Button* m_buttonMiddleMiddle;
+    gui::Button* m_buttonMiddleRight;
+    
+    gui::Button* m_buttonBottomLeft;
+    gui::Button* m_buttonBottomMiddle;
+    gui::Button* m_buttonBottomRight;
+    
+    gui::Button* m_gameBoardButtons[9];
+    
 };
 
 #endif // GAME_STATE_H
