@@ -27,6 +27,7 @@ public:
 private:
     virtual void CreateSystems();
     virtual void CreateEntities();
+    void onBoardSquarePressed(int);
     
     n8::InputService* m_inputService;
     n8::RenderService* m_renderService;

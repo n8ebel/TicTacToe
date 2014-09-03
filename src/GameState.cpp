@@ -8,6 +8,8 @@
 
 #include "GameState.h"
 
+#define TAG "Game State"
+
 GameState::GameState() {
     //m_id = new ID(GAME_STATE);
     
@@ -26,8 +28,14 @@ GameState::GameState() {
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            m_gameBoardButtons[currentIndex] = new gui::Button("button"+to_string(currentIndex),"",
-                                                               100+100*j+j*10,100+100*i+i*10,100,100, [this](){});
+            m_gameBoardButtons[currentIndex] = new gui::Button("button"+to_string(currentIndex), "",
+                                                               100+100*j+j*10,
+                                                               100+100*i+i*10,
+                                                               100,100,
+                                                               [this, currentIndex]( ){
+                                                                   onBoardSquarePressed(currentIndex);
+                                                                });
+            
             m_gui->AddElement(m_gameBoardButtons[currentIndex]);
             currentIndex++;
         }
@@ -101,4 +109,9 @@ void GameState::CreateSystems(){
 void GameState::CreateEntities(){
     
     
+}
+
+void GameState::onBoardSquarePressed(int boardSquareIndex){
+    n8::Log::Debug(TAG, "Board Square " + to_string(boardSquareIndex) + " was pressed");
+    m_gameBoardButtons[boardSquareIndex]->GetStyle()->SetColor(gui::Style::EStyleColor::Button, 255, 0, 0, 255);
 }
