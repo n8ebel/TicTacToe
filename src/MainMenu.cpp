@@ -33,7 +33,8 @@ MainMenu::MainMenu() : m_gui(nullptr),m_exitEvent(Test2), m_pushStateCommand(1) 
     m_button1 = new gui::Button("playButton","Play", 230,580,160,40, [this](){
         m_pushStateCommand.execute();
     });
-        
+    
+    
     m_label = new gui::Label("Tic Tac Toe", 450,0);
     
     

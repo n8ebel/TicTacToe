@@ -50,6 +50,8 @@ private:
     
     gui::Button* m_gameBoardButtons[9];
     
+    n8::Texture* goo;
+    
 };
 
 #endif // GAME_STATE_H
