@@ -23,7 +23,6 @@ GameState::GameState() {
     m_font = (n8::Font*)((n8::ResourceManager*)n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RESOURCES))->GetResource("stocky24");
     
     m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
-    m_gui->GetStyle().GetWindow()->GetWindow();
     
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
@@ -41,6 +40,7 @@ GameState::GameState() {
         }
     }
     
+    m_gui->RemoveElement(m_gameBoardButtons[8]);
     m_gui->Build();
     
     m_inputService->RegisterUserInterface(m_gui);
@@ -117,4 +117,5 @@ void GameState::CreateEntities(){
 void GameState::onBoardSquarePressed(int boardSquareIndex){
     n8::Log::Debug(TAG, "Board Square " + to_string(boardSquareIndex) + " was pressed");
     m_gameBoardButtons[boardSquareIndex]->setClickHandler(nullptr);
+    m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 0);
 }
