@@ -29,7 +29,7 @@ MainMenu::MainMenu() : m_gui(nullptr),m_exitEvent(Test2), m_pushStateCommand(1) 
     m_font = (n8::Font*)((n8::ResourceManager*)n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RESOURCES))->GetResource("stocky24");
     
     m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
-    m_gui->GetStyle().GetWindow()->GetWindow();
+    
     m_button1 = new gui::Button("playButton","Play", 230,580,160,40, [this](){
         m_pushStateCommand.execute();
     });
