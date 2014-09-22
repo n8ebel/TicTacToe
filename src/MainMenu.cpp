@@ -15,18 +15,18 @@
 
 using namespace std;
 
-MainMenu::MainMenu() : m_gui(nullptr),m_exitEvent(Test2), m_pushStateCommand(1) {
+MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent(Test2), m_pushStateCommand(1) {
     
-    m_inputService = static_cast<n8::InputService*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::INPUT));
-    m_renderService = static_cast<n8::RenderService*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RENDER));
-    m_audioService = static_cast<n8::AudioService*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::AUDIO));
+    m_inputService = game->getInputService();
+    m_renderService = game->getRenderService();
+    m_audioService = game->getAudioService();
     
     CreateSystems();
     CreateEntities();
     
     
     //build user interface
-    m_font = (n8::Font*)((n8::ResourceManager*)n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RESOURCES))->GetResource("stocky24");
+    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
     m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
     

@@ -10,19 +10,19 @@
 
 #define TAG "Game State"
 
-GameState::GameState() {
+GameState::GameState(n8::Game* game) : n8::State(game) {
     //m_id = new ID(GAME_STATE);
     
     CreateSystems();
     CreateEntities();
     
-    m_inputService = static_cast<n8::InputService*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::INPUT));
+    m_inputService = game->getInputService();
     
-    m_renderService = static_cast<n8::RenderService*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RENDER));
+    m_renderService = game->getRenderService();
     
-    m_font = (n8::Font*)((n8::ResourceManager*)n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RESOURCES))->GetResource("stocky24");
+    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
-    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
+    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()), m_font);
     
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {

@@ -13,10 +13,8 @@ int main(int argc, char * arg[])
     game.DefineWindowSize(640, 640);
     game.Setup();
     
-    
-    
-    MainMenu mainMenu;
-    GameState gameState;
+    MainMenu mainMenu(&game);
+    GameState gameState(&game);
     
     game.RegisterState(0, &mainMenu);
     game.RegisterState(1, &gameState);

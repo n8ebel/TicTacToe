@@ -15,7 +15,7 @@
 
 class GameState : public n8::State {
 public:
-    GameState();
+    GameState(n8::Game* game);
     virtual ~GameState();
     
     virtual void OnResume();

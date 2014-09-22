@@ -20,7 +20,7 @@ class Entity;
 
 class MainMenu : public n8::State {
 public:
-    MainMenu();
+    MainMenu(n8::Game* game);
     virtual ~MainMenu();
     
     virtual void OnResume();
