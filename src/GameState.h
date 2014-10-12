@@ -29,6 +29,13 @@ private:
     virtual void CreateEntities();
     void onBoardSquarePressed(int);
     
+    enum class Player { PLAYER1, PLAYER2};
+    Player mCurrentPlayer;
+    short mPlayerGameBoards[2];
+    
+    std::string PlayerToString(Player);
+    void SwitchPlayer();
+    
     n8::InputService* m_inputService;
     n8::RenderService* m_renderService;
     n8::PopStateCommand m_popStateCommand;
@@ -51,6 +58,8 @@ private:
     gui::Button* m_gameBoardButtons[9];
     
     n8::Texture* goo;
+    
+    bool CheckForWinner(short);
     
 };
 

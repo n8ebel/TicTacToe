@@ -11,8 +11,6 @@
 #define TAG "Game State"
 
 GameState::GameState(n8::Game* game) : n8::State(game) {
-    //m_id = new ID(GAME_STATE);
-    
     CreateSystems();
     CreateEntities();
     
@@ -40,10 +38,15 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
         }
     }
     
-    m_gui->RemoveElement(m_gameBoardButtons[8]);
     m_gui->Build();
     
     m_inputService->RegisterUserInterface(m_gui);
+    
+    // Set the starting player
+    mCurrentPlayer = Player::PLAYER1;
+    
+    mPlayerGameBoards[0] = 0;
+    mPlayerGameBoards[1] = 0;
 
 }
 
@@ -60,13 +63,6 @@ void GameState::OnResume(){
     //Register input commands
     m_inputService->RegisterKeyDownCommand(SDLK_ESCAPE, &m_popStateCommand);
     
-    //register mouse actions
-    m_inputService->RegisterMouseMoveAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckMove(x,y);
-        }
-    });
-    
     m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
         if (m_gui) {
             m_gui->CheckClickUp(x, y);
@@ -80,8 +76,8 @@ void GameState::OnResume(){
     });
 }
 void GameState::OnPause(){
-    //Unregister input commands
-    
+    m_inputService->UnregisterMouseButtonDownAction();
+    m_inputService->UnregisterMouseButtonUpAction();
 }
 
 void GameState::Update(Uint32 currentTime){
@@ -115,7 +111,97 @@ void GameState::CreateEntities(){
 }
 
 void GameState::onBoardSquarePressed(int boardSquareIndex){
-    n8::Log::Debug(TAG, "Board Square " + to_string(boardSquareIndex) + " was pressed");
+    n8::Log::Debug(TAG, "Board Square " + to_string(boardSquareIndex) + " was pressed by " + PlayerToString(mCurrentPlayer));
+    
+    // Remove the click handler for the pressed board space
     m_gameBoardButtons[boardSquareIndex]->setClickHandler(nullptr);
-    m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 0);
+    
+    // Update the draw color of the clicked space to indicate who clicked it
+    if (mCurrentPlayer == Player::PLAYER1) {
+        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 0);
+        mPlayerGameBoards[static_cast<int>(mCurrentPlayer)] |= 1 << boardSquareIndex;
+        n8::Log::Debug(TAG, std::to_string(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)]));
+    }else if (mCurrentPlayer == Player::PLAYER2){
+        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 100);
+        mPlayerGameBoards[static_cast<int>(mCurrentPlayer)] |= 1 << boardSquareIndex;
+        n8::Log::Debug(TAG, std::to_string(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)]));
+    }
+    
+    if(CheckForWinner(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)])){
+        n8::Log::Debug(TAG, PlayerToString(mCurrentPlayer) + " won!!");
+        
+        SDL_MessageBoxButtonData button1;
+        button1.text = "Accept";
+        button1.buttonid = 0;
+        button1.flags = 0;
+        
+        SDL_MessageBoxButtonData button2;
+        button2.text = "Decline";
+        button2.buttonid = 1;
+        button2.flags = 0;
+        
+        SDL_MessageBoxButtonData button3;
+        button3.text = "Cancel";
+        button3.buttonid = 2;
+        button3.flags = 0;
+        
+        SDL_MessageBoxButtonData buttons[3] = {button1,button2,button3};
+        
+        SDL_MessageBoxData tmp;
+        tmp.buttons = buttons;
+        tmp.numbuttons=3;
+        tmp.title = "Select";
+        tmp.message = "Please Select an Option";
+        tmp.window = NULL;
+        tmp.flags = 0;
+        tmp.colorScheme = NULL;
+        
+        int buttonClickedId = -1;
+        SDL_ShowMessageBox(&tmp, &buttonClickedId);
+        cout << "The user selected button " << buttonClickedId << endl;
+    }
+    
+    // Update the current player
+    SwitchPlayer();
+    
+}
+
+std::string GameState::PlayerToString(Player player){
+    switch (player) {
+        case Player::PLAYER1:
+            return "Player 1";
+            break;
+        case Player::PLAYER2:
+            return "Player 2";
+        default:
+            return "No Player";
+            break;
+    }
+}
+
+void GameState::SwitchPlayer(){
+    if (mCurrentPlayer == Player::PLAYER1) {
+        mCurrentPlayer = Player::PLAYER2;
+    }else if(mCurrentPlayer == Player::PLAYER2){
+        mCurrentPlayer = Player::PLAYER1;
+    }
+}
+
+bool GameState::CheckForWinner(short playerBoard){
+    if(    (((playerBoard & 1 << 0) != 0) && ((playerBoard & 1 << 1) != 0) && ((playerBoard & 1 << 2) != 0)) ||
+           (((playerBoard & 1 << 3) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 5) != 0)) ||
+           (((playerBoard & 1 << 6) != 0) && ((playerBoard & 1 << 7) != 0) && ((playerBoard & 1 << 8) != 0)) ||
+           (((playerBoard & 1 << 0) != 0) && ((playerBoard & 1 << 3) != 0) && ((playerBoard & 1 << 6) != 0)) ||
+           (((playerBoard & 1 << 1) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 7) != 0)) ||
+           (((playerBoard & 1 << 2) != 0) && ((playerBoard & 1 << 5) != 0) && ((playerBoard & 1 << 8) != 0)) ||
+           (((playerBoard & 1 << 0) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 8) != 0)) ||
+           (((playerBoard & 1 << 6) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 2) != 0)) 
+       
+       
+    )
+    {
+        return true;
+    }
+    
+    return false;
 }
