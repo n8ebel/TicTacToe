@@ -10,7 +10,7 @@ int main(int argc, char * arg[])
 {
     n8::Game::Init();
     n8::Game game("Resources.xml");
-    game.DefineWindowSize(640, 640);
+    game.DefineWindowSize(520, 520);
     game.Setup();
     
     MainMenu mainMenu(&game);

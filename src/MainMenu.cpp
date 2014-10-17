@@ -30,12 +30,12 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     
     m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
     
-    m_button1 = new gui::Button("playButton","Play", 230,580,160,40, [this](){
+    m_button1 = new gui::Button("playButton","Play", 230,440,160,40, [this](){
         m_pushStateCommand.execute();
     });
     
     
-    m_label = new gui::Label("Tic Tac Toe", 450,0);
+    m_label = new gui::Label("Tic Tac Toe", 350,0);
     
     
     m_gui->AddElement(m_button1);
