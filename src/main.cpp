@@ -16,10 +16,7 @@ int main(int argc, char * arg[])
     MainMenu mainMenu(&game);
     GameState gameState(&game);
     
-    game.RegisterState(0, &mainMenu);
-    game.RegisterState(1, &gameState);
-    
-    game.SetStartState(0);
+    game.StartState(new MainMenu(&game));
     
     game.Start();
     

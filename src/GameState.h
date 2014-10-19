@@ -25,6 +25,7 @@ public:
     virtual void Render(n8::Window* img);
     
 private:
+    n8::Game* m_game;
     virtual void CreateSystems();
     virtual void CreateEntities();
     void onBoardSquarePressed(int);
@@ -38,7 +39,6 @@ private:
     
     n8::InputService* m_inputService;
     n8::RenderService* m_renderService;
-    n8::PopStateCommand m_popStateCommand;
     
     n8::Font* m_font;
     gui::GUI* m_gui;
@@ -56,8 +56,6 @@ private:
     gui::Button* m_buttonBottomRight;
     
     gui::Button* m_gameBoardButtons[9];
-    
-    n8::Texture* goo;
     
     bool CheckForWinner(short);
     
