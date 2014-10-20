@@ -16,6 +16,8 @@
 
 #include "Game.h"
 
+#include "GameState.h"
+
 class Entity;
 
 class MainMenu : public n8::State {
@@ -32,6 +34,7 @@ public:
     virtual void RegisterEntity(Entity* newEntity);
     
 private:
+    n8::Game* m_game;
     virtual void CreateSystems();
     virtual void CreateEntities();
     
@@ -48,9 +51,6 @@ private:
     gui::Container* m_toolbar;
     gui::InputBox* m_inputBox;
     gui::Label* m_label;
-    
-    n8::PopStateCommand m_popStateCommand;
-    n8::PushStateCommand m_pushStateCommand;
     
 };
 #endif // MAIN_MENU_H

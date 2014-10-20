@@ -12,10 +12,12 @@
 
 #include "MainMenu.h"
 #include "GameValues.h"
+#include "GameState.h"
 
 using namespace std;
 
-MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent(Test2), m_pushStateCommand(1) {
+MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent(Test2) {
+    m_game = game;
     
     m_inputService = game->getInputService();
     m_renderService = game->getRenderService();
@@ -31,7 +33,7 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
     
     m_button1 = new gui::Button("playButton","Play", 230,440,160,40, [this](){
-        m_pushStateCommand.execute();
+        m_game->StartState(new GameState(m_game));
     });
     
     
@@ -58,7 +60,7 @@ MainMenu::~MainMenu(){
 void MainMenu::OnResume(){
     
     //register keyboard commands
-    m_inputService->RegisterKeyDownCommand(SDLK_ESCAPE, &m_popStateCommand);
+    m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
     
     
     
@@ -83,13 +85,13 @@ void MainMenu::OnResume(){
     
 //start music
 
-    m_audioService->PlayMusic(static_cast<n8::Music*>(static_cast<n8::ResourceManager*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RESOURCES))->GetResource("scratch")));
+    m_audioService->PlayMusic(static_cast<n8::Music*>(static_cast<n8::ResourceManager*>(n8::ServiceManager::GetInstance()->GetService(n8::ServiceManager::RESOURCES))->GetResource("beat")));
     
     //m_audioService->PlaySoundEffect(static_cast<n8::SoundEffect*>(static_cast<n8::ResourceManager*>(n8::ServiceManager::GetInstance()->GetService(EService::Resources))->GetResource("beat")));
 }
 
 void MainMenu::OnPause(){
-    m_inputService->UnregisterKeyCommands();
+    m_inputService->UnregisterKeyActions();
     m_inputService->UnregisterMouseButtonDownAction();
     m_inputService->UnregisterMouseButtonUpAction();
     m_inputService->UnregisterMouseMoveAction();
@@ -120,7 +122,7 @@ void MainMenu::Render(n8::Window* p_window){
     }
    
     m_renderService->PostToScreen();  //draw everything to the screen
-                                              
+    
 }
 
 void MainMenu::RegisterEntity(Entity* newEntity){ }

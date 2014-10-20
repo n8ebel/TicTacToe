@@ -11,6 +11,8 @@
 #define TAG "Game State"
 
 GameState::GameState(n8::Game* game) : n8::State(game) {
+    m_game = game;
+    
     CreateSystems();
     CreateEntities();
     
@@ -61,7 +63,7 @@ GameState::~GameState(){
 
 void GameState::OnResume(){
     //Register input commands
-    m_inputService->RegisterKeyDownCommand(SDLK_ESCAPE, &m_popStateCommand);
+    m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
     
     m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
         if (m_gui) {
@@ -93,9 +95,6 @@ void GameState::Render(n8::Window* p_window){
     if (m_gui) {
         m_gui->Draw(p_window);
     }
-    
-    if(goo != nullptr)
-        m_renderService->Draw(goo, 100, 100);
     
     m_renderService->PostToScreen();  //draw everything to the screen
     
