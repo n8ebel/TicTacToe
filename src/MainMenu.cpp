@@ -73,10 +73,7 @@ void MainMenu::OnResume(){
     
     m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
         if (m_gui) {
-            cout << "MainMenu click up" << endl;
             m_gui->CheckClickUp(x, y);
-        }else{
-            cout << "MainMenu not click up" << endl;
         }
     });
     
