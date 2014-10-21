@@ -7,6 +7,7 @@
 //
 
 #include "GameState.h"
+#include "MainMenu.h"
 
 #define TAG "Game State"
 
@@ -34,7 +35,7 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
                                                                [this, currentIndex]( ){
                                                                    onBoardSquarePressed(currentIndex);
                                                                 });
-            
+            m_gameBoardButtons[currentIndex]->SetColor(gui::Style::EStyleColor::Button, 50, 50, 250);
             m_gui->AddElement(m_gameBoardButtons[currentIndex]);
             currentIndex++;
         }
@@ -136,26 +137,21 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
         n8::Log::Debug(TAG, PlayerToString(mCurrentPlayer) + " won!!");
         
         SDL_MessageBoxButtonData button1;
-        button1.text = "Accept";
+        button1.text = "Play Again";
         button1.buttonid = 0;
         button1.flags = 0;
         
         SDL_MessageBoxButtonData button2;
-        button2.text = "Decline";
+        button2.text = "Main Menu";
         button2.buttonid = 1;
         button2.flags = 0;
         
-        SDL_MessageBoxButtonData button3;
-        button3.text = "Cancel";
-        button3.buttonid = 2;
-        button3.flags = 0;
-        
-        SDL_MessageBoxButtonData buttons[3] = {button1,button2,button3};
+        SDL_MessageBoxButtonData buttons[2] = {button1,button2};
         
         SDL_MessageBoxData tmp;
         tmp.buttons = buttons;
-        tmp.numbuttons=3;
-        tmp.title = "Select";
+        tmp.numbuttons=2;
+        tmp.title = "Winner!!";
         tmp.message = "Please Select an Option";
         tmp.window = NULL;
         tmp.flags = 0;
@@ -165,9 +161,13 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
         
         int buttonClickedId = -1;
         SDL_ShowMessageBox(&tmp, &buttonClickedId);
-        cout << "The user selected button " << buttonClickedId << endl;
-        
-        
+        if( buttonClickedId == 0 ){
+            ResetGameboard();
+            cout << "0 selected" << endl;
+        }else{
+            cout << "goo" << endl;
+            m_game->StartState(new MainMenu(m_game));
+        }
     }
     
     // Update the current player
@@ -213,4 +213,23 @@ bool GameState::CheckForWinner(short playerBoard){
     }
     
     return false;
+}
+
+void GameState::ResetGameboard(){
+    // Set the starting player
+    mCurrentPlayer = Player::PLAYER1;
+    
+    mPlayerGameBoards[0] = 0;
+    mPlayerGameBoards[1] = 0;
+    
+    int currentIndex = 0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            m_gameBoardButtons[currentIndex]->setClickHandler([this, currentIndex]( ){
+                onBoardSquarePressed(currentIndex);
+            });
+            m_gameBoardButtons[currentIndex]->SetColor(gui::Style::EStyleColor::Button, 50, 50, 250);
+            currentIndex++;
+        }
+    }
 }

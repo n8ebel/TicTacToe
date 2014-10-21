@@ -58,6 +58,7 @@ private:
     gui::Button* m_gameBoardButtons[9];
     
     bool CheckForWinner(short);
+    void ResetGameboard();
     
 };
 
