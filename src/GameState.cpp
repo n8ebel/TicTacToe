@@ -65,6 +65,12 @@ void GameState::OnResume(){
     //Register input commands
     m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
     
+    m_inputService->RegisterMouseMoveAction([this](int x, int y){
+        if (m_gui) {
+            m_gui->CheckMove(x, y);
+        }
+    });
+    
     m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
         if (m_gui) {
             m_gui->CheckClickUp(x, y);
@@ -153,11 +159,15 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
         tmp.message = "Please Select an Option";
         tmp.window = NULL;
         tmp.flags = 0;
-        tmp.colorScheme = NULL;
+        
+        
+        tmp.colorScheme = nullptr;
         
         int buttonClickedId = -1;
         SDL_ShowMessageBox(&tmp, &buttonClickedId);
         cout << "The user selected button " << buttonClickedId << endl;
+        
+        
     }
     
     // Update the current player

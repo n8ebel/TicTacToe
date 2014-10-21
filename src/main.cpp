@@ -31,6 +31,5 @@ int main(int argc, char * arg[])
     
     std::cout <<"main is finished" << std::endl;
     return EXIT_SUCCESS;
-        
 }
 
