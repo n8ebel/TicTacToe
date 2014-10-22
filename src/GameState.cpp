@@ -35,13 +35,16 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
                                                                [this, currentIndex]( ){
                                                                    onBoardSquarePressed(currentIndex);
                                                                 });
-            m_gameBoardButtons[currentIndex]->SetColor(gui::Style::EStyleColor::Button, 50, 50, 250);
             m_gui->AddElement(m_gameBoardButtons[currentIndex]);
             currentIndex++;
         }
     }
     
     m_gui->Build();
+    
+    for (int i = 0; i < 9; i++) {
+        m_gameBoardButtons[i]->SetColor(gui::Style::EStyleColor::Button, 250, 250, 0);
+    }
     
     m_inputService->RegisterUserInterface(m_gui);
     
