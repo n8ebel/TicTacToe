@@ -127,11 +127,11 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
     
     // Update the draw color of the clicked space to indicate who clicked it
     if (mCurrentPlayer == Player::PLAYER1) {
-        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 0);
+        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Selected, 255, 100, 0);
         mPlayerGameBoards[static_cast<int>(mCurrentPlayer)] |= 1 << boardSquareIndex;
         n8::Log::Debug(TAG, std::to_string(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)]));
     }else if (mCurrentPlayer == Player::PLAYER2){
-        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 100);
+        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Selected, 255, 100, 100);
         mPlayerGameBoards[static_cast<int>(mCurrentPlayer)] |= 1 << boardSquareIndex;
         n8::Log::Debug(TAG, std::to_string(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)]));
     }
