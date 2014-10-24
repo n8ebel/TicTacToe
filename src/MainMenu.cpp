@@ -37,7 +37,7 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     });
     
     
-    m_label = new gui::Label("Tic Tac Toe", 350,0);
+    m_label = new gui::Label("label", "Tic Tac Toe", 350,0);
     
     
     m_gui->AddElement(m_button1);
