@@ -14,7 +14,6 @@ int main(int argc, char * arg[])
     game.Setup();
     
     MainMenu mainMenu(&game);
-    GameState gameState(&game);
     
     game.StartState(new MainMenu(&game));
     
