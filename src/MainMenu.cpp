@@ -42,8 +42,9 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     
     m_gui->AddElement(m_button1);
     m_gui->AddElement(m_label);
-    gui::Dialog* dialog = new gui::Dialog("1","a", 100,100,300,200);
-    m_gui->ShowDialog(dialog);
+    gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+    
+    m_gui->ShowDialog(builder->SetTitle("title")->Create());
     m_gui->Build();
     
     
