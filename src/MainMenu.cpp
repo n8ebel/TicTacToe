@@ -30,7 +30,7 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     //build user interface
     m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
-    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()),m_font);
+    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()));
     
     m_button1 = new gui::Button("playButton","Play", 230,440,160,40, [this](){
         m_game->StartState(new GameState(m_game));
@@ -43,6 +43,9 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     m_gui->AddElement(m_button1);
     m_gui->AddElement(m_label);
     gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+    builder->SetPositiveButton("Play Again", nullptr);
+    builder->SetNegativeButton("Negative", nullptr);
+    builder->SetNeutralButton("Neutral", nullptr);
     
     m_gui->ShowDialog(builder->SetTitle("title")->Create());
     m_gui->Build();

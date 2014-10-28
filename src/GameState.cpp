@@ -23,7 +23,7 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
     
     m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
-    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()), m_font);
+    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()));
     
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
