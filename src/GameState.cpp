@@ -12,7 +12,7 @@
 #define TAG "Game State"
 
 GameState::GameState(n8::Game* game) : n8::State(game) {
-    m_game = game;
+    
     
     CreateSystems();
     CreateEntities();

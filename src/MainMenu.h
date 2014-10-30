@@ -34,7 +34,7 @@ public:
     virtual void RegisterEntity(Entity* newEntity);
     
 private:
-    n8::Game* m_game;
+    
     virtual void CreateSystems();
     virtual void CreateEntities();
     

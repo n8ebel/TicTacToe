@@ -25,7 +25,6 @@ public:
     virtual void Render(n8::Window* img);
     
 private:
-    n8::Game* m_game;
     virtual void CreateSystems();
     virtual void CreateEntities();
     void onBoardSquarePressed(int);

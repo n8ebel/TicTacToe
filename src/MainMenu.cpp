@@ -14,14 +14,17 @@
 #include "GameValues.h"
 #include "GameState.h"
 
+#define TAG "MainMenu"
+
 using namespace std;
 
 MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent(Test2) {
-    m_game = game;
     
     m_inputService = game->getInputService();
     m_renderService = game->getRenderService();
     m_audioService = game->getAudioService();
+    game->getResourceManager();
+    game->getStateManagerService();
     
     CreateSystems();
     CreateEntities();
@@ -36,23 +39,22 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
         m_game->StartState(new GameState(m_game));
     });
     
-    
     m_label = new gui::Label("label", "Tic Tac Toe", 350,0);
-    
     
     m_gui->AddElement(m_button1);
     m_gui->AddElement(m_label);
-    gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
-    builder->SetPositiveButton("Play Again", nullptr);
-    builder->SetNegativeButton("Negative", nullptr);
-    builder->SetNeutralButton("Neutral", nullptr);
     
-    m_gui->ShowDialog(builder->SetTitle("title")->Create());
+//    gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+//    builder->SetPositiveButton("Play Again", nullptr);
+//    builder->SetNegativeButton("Negative", nullptr);
+//    builder->SetNeutralButton("Neutral", nullptr);
+    
+    //m_gui->ShowDialog(builder->SetTitle("title")->Create());
+    
     m_gui->Build();
     
-    
-    
     m_inputService->RegisterUserInterface(m_gui);
+    
 }
 
 MainMenu::~MainMenu(){
@@ -120,9 +122,6 @@ void MainMenu::Render(n8::Window* p_window){
     if ( background != nullptr){
         m_renderService->Draw(background, -20, -20, 680, 620);
     }
-    
-    
-    
     
     if (m_gui) {
          m_gui->Draw(p_window);

@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "Game.h"
 #include "GameValues.h"
 #include "MainMenu.h"
 #include "GameState.h"
@@ -12,8 +11,6 @@ int main(int argc, char * arg[])
     n8::Game game("Resources.xml");
     game.DefineWindowSize(520, 520);
     game.Setup();
-    
-    MainMenu mainMenu(&game);
     
     game.StartState(new MainMenu(&game));
     
