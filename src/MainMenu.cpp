@@ -44,12 +44,12 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     m_gui->AddElement(m_button1);
     m_gui->AddElement(m_label);
     
-//    gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
-//    builder->SetPositiveButton("Play Again", nullptr);
-//    builder->SetNegativeButton("Negative", nullptr);
-//    builder->SetNeutralButton("Neutral", nullptr);
+    gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+    builder->SetPositiveButton("Play Again", nullptr);
+    builder->SetNegativeButton("Negative", nullptr);
+    builder->SetNeutralButton("Neutral", nullptr);
     
-    //m_gui->ShowDialog(builder->SetTitle("title")->Create());
+    m_gui->ShowDialog(builder->SetTitle("title")->Create());
     
     m_gui->Build();
     
