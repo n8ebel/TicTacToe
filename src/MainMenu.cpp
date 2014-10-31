@@ -18,7 +18,7 @@
 
 using namespace std;
 
-MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent(Test2) {
+MainMenu::MainMenu(n8::Game* game) : n8::State(game),m_exitEvent(Test2) {
     
     m_inputService = game->getInputService();
     m_renderService = game->getRenderService();
@@ -29,39 +29,34 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game), m_gui(nullptr),m_exitEvent
     CreateSystems();
     CreateEntities();
     
+    n8::Window* window = const_cast<n8::Window*>(m_renderService->GetWindow());
     
     //build user interface
     m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
-    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()));
-    
-    m_button1 = new gui::Button("playButton","Play", 230,440,160,40, [this](){
+    m_button1 = new gui::Button(window, "playButton","Play", 230,440,160,40, [this](){
         m_game->StartState(new GameState(m_game));
     });
     
-    m_label = new gui::Label("label", "Tic Tac Toe", 350,0);
+    m_label = new gui::Label(window, "label", "Tic Tac Toe", 350,0);
     
-    m_gui->AddElement(m_button1);
-    m_gui->AddElement(m_label);
     
-    gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+    GetGUI()->AddElement(m_button1);
+    GetGUI()->AddElement(m_label);
+    
+    gui::Dialog::Builder* builder = new gui::Dialog::Builder(window);
     builder->SetPositiveButton("Play Again", nullptr);
     builder->SetNegativeButton("Negative", nullptr);
     builder->SetNeutralButton("Neutral", nullptr);
     
-    m_gui->ShowDialog(builder->SetTitle("title")->Create());
+    GetGUI()->ShowDialog(builder->SetTitle("title")->Create());
     
-    m_gui->Build();
-    
-    m_inputService->RegisterUserInterface(m_gui);
+    m_inputService->RegisterUserInterface(GetGUI());
     
 }
 
 MainMenu::~MainMenu(){
-    if (m_gui) {
-       delete m_gui;
-       m_gui = nullptr;
-    }
+    State::~State();
 }
 
 
@@ -75,21 +70,16 @@ void MainMenu::OnResume(){
     
     //register mouse actions
     m_inputService->RegisterMouseMoveAction( [this](int x, int y){
-        if (m_gui) {
-             m_gui->CheckMove(x,y);
-        }
+        GetGUI()->CheckMove(x,y);
     });
     
     m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckClickUp(x, y);
-        }
+        GetGUI()->CheckClickUp(x, y);
+        
     });
     
     m_inputService->RegisterMouseButtonDownAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckClickDown(x, y);
-        }
+        GetGUI()->CheckClickDown(x, y);
     });
     
 //start music
@@ -109,9 +99,7 @@ void MainMenu::OnPause(){
 }
 
 void MainMenu::Update(Uint32 currentTime){
-    if (m_gui){
-        m_gui->Update(currentTime);
-    }
+    GetGUI()->Update(currentTime);
 }
 
 void MainMenu::Render(n8::Window* p_window){
@@ -123,9 +111,7 @@ void MainMenu::Render(n8::Window* p_window){
         m_renderService->Draw(background, -20, -20, 680, 620);
     }
     
-    if (m_gui) {
-         m_gui->Draw(p_window);
-    }
+    GetGUI()->Draw(p_window);
    
     m_renderService->PostToScreen();  //draw everything to the screen
     

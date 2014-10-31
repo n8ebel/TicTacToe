@@ -40,7 +40,6 @@ private:
     n8::RenderService* m_renderService;
     
     n8::Font* m_font;
-    gui::GUI* m_gui;
     
     gui::Button* m_buttonTopLeft;
     gui::Button* m_buttonTopMiddle;

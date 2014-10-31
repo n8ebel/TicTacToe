@@ -21,32 +21,31 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
     
     m_renderService = game->getRenderService();
     
-    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
+    n8::Window* window = const_cast<n8::Window*>(m_renderService->GetWindow());
     
-    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()));
+    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            m_gameBoardButtons[currentIndex] = new gui::Button("button"+to_string(currentIndex), " ",
+            m_gameBoardButtons[currentIndex] = new gui::Button(window,
+                                                               "button"+to_string(currentIndex), " ",
                                                                100+100*j+j*10,
                                                                100+100*i+i*10,
                                                                100,100,
                                                                [this, currentIndex]( ){
                                                                    onBoardSquarePressed(currentIndex);
                                                                 });
-            m_gui->AddElement(m_gameBoardButtons[currentIndex]);
+            GetGUI()->AddElement(m_gameBoardButtons[currentIndex]);
             currentIndex++;
         }
     }
-    
-    m_gui->Build();
     
     for (int i = 0; i < 9; i++) {
         m_gameBoardButtons[i]->SetColor(gui::Style::EStyleColor::Button, 250, 250, 0);
     }
     
-    m_inputService->RegisterUserInterface(m_gui);
+    m_inputService->RegisterUserInterface(GetGUI());
     
     // Set the starting player
     mCurrentPlayer = Player::PLAYER1;
@@ -57,10 +56,7 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
 }
 
 GameState::~GameState(){
-    if (m_gui) {
-        delete m_gui;
-        m_gui = nullptr;
-    }
+    State::~State();
 }
 
 
@@ -70,21 +66,15 @@ void GameState::OnResume(){
     m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
     
     m_inputService->RegisterMouseMoveAction([this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckMove(x, y);
-        }
+        GetGUI()->CheckMove(x, y);
     });
     
     m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckClickUp(x, y);
-        }
+        GetGUI()->CheckClickUp(x, y);
     });
     
     m_inputService->RegisterMouseButtonDownAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckClickDown(x, y);
-        }
+        GetGUI()->CheckClickDown(x, y);
     });
 }
 void GameState::OnPause(){
@@ -93,18 +83,14 @@ void GameState::OnPause(){
 }
 
 void GameState::Update(Uint32 currentTime){
-    if (m_gui){
-        m_gui->Update(currentTime);
-    }
+    GetGUI()->Update(currentTime);
 }
 void GameState::Render(n8::Window* p_window){
     
     m_renderService->SetDrawingColor(0, 255, 0, 255);  //set background color
     m_renderService->ColorBackground();  //color the background
     
-    if (m_gui) {
-        m_gui->Draw(p_window);
-    }
+    GetGUI()->Draw(p_window);
     
     m_renderService->PostToScreen();  //draw everything to the screen
     

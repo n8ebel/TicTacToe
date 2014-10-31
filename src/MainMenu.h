@@ -45,7 +45,6 @@ private:
     n8::Event m_exitEvent;
     
     n8::Font* m_font;
-    gui::GUI* m_gui;
     gui::Button* m_button1;
     gui::Button* m_button2;
     gui::Container* m_toolbar;
