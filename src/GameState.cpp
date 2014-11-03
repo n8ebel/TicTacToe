@@ -7,11 +7,12 @@
 //
 
 #include "GameState.h"
+#include "MainMenu.h"
 
 #define TAG "Game State"
 
 GameState::GameState(n8::Game* game) : n8::State(game) {
-    m_game = game;
+    
     
     CreateSystems();
     CreateEntities();
@@ -20,29 +21,29 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
     
     m_renderService = game->getRenderService();
     
-    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
+    n8::Window* window = const_cast<n8::Window*>(m_renderService->GetWindow());
     
-    m_gui = new gui::GUI(const_cast<n8::Window*>(m_renderService->GetWindow()), m_font);
+    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            m_gameBoardButtons[currentIndex] = new gui::Button("button"+to_string(currentIndex), " ",
+            m_gameBoardButtons[currentIndex] = new gui::Button(window,
+                                                               "button"+to_string(currentIndex), " ",
                                                                100+100*j+j*10,
                                                                100+100*i+i*10,
                                                                100,100,
                                                                [this, currentIndex]( ){
                                                                    onBoardSquarePressed(currentIndex);
                                                                 });
-            
-            m_gui->AddElement(m_gameBoardButtons[currentIndex]);
+            GetGUI()->AddElement(m_gameBoardButtons[currentIndex]);
             currentIndex++;
         }
     }
     
-    m_gui->Build();
-    
-    m_inputService->RegisterUserInterface(m_gui);
+    for (int i = 0; i < 9; i++) {
+        m_gameBoardButtons[i]->SetColor(gui::Style::EStyleColor::Button, 250, 250, 0);
+    }
     
     // Set the starting player
     mCurrentPlayer = Player::PLAYER1;
@@ -53,10 +54,7 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
 }
 
 GameState::~GameState(){
-    if (m_gui) {
-        delete m_gui;
-        m_gui = nullptr;
-    }
+    State::~State();
 }
 
 
@@ -64,18 +62,6 @@ GameState::~GameState(){
 void GameState::OnResume(){
     //Register input commands
     m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
-    
-    m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckClickUp(x, y);
-        }
-    });
-    
-    m_inputService->RegisterMouseButtonDownAction( [this](int x, int y){
-        if (m_gui) {
-            m_gui->CheckClickDown(x, y);
-        }
-    });
 }
 void GameState::OnPause(){
     m_inputService->UnregisterMouseButtonDownAction();
@@ -83,31 +69,20 @@ void GameState::OnPause(){
 }
 
 void GameState::Update(Uint32 currentTime){
-    if (m_gui){
-        m_gui->Update(currentTime);
-    }
+    GetGUI()->Update(currentTime);
 }
 void GameState::Render(n8::Window* p_window){
     
     m_renderService->SetDrawingColor(0, 255, 0, 255);  //set background color
     m_renderService->ColorBackground();  //color the background
     
-    if (m_gui) {
-        m_gui->Draw(p_window);
-    }
-    
-    m_renderService->PostToScreen();  //draw everything to the screen
+    State::Render(p_window);
     
 }
 
-void GameState::CreateSystems(){
-    //SystemManager::GetInstance()->RegisterSystem(RENDER_SYSTEM, new RenderSystem());
-}
+void GameState::CreateSystems(){ }
 
-void GameState::CreateEntities(){
-    
-    
-}
+void GameState::CreateEntities(){ }
 
 void GameState::onBoardSquarePressed(int boardSquareIndex){
     n8::Log::Debug(TAG, "Board Square " + to_string(boardSquareIndex) + " was pressed by " + PlayerToString(mCurrentPlayer));
@@ -117,11 +92,11 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
     
     // Update the draw color of the clicked space to indicate who clicked it
     if (mCurrentPlayer == Player::PLAYER1) {
-        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 0);
+        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Selected, 255, 100, 0);
         mPlayerGameBoards[static_cast<int>(mCurrentPlayer)] |= 1 << boardSquareIndex;
         n8::Log::Debug(TAG, std::to_string(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)]));
     }else if (mCurrentPlayer == Player::PLAYER2){
-        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Button, 255, 100, 100);
+        m_gameBoardButtons[boardSquareIndex]->SetColor(gui::Style::EStyleColor::Selected, 255, 100, 100);
         mPlayerGameBoards[static_cast<int>(mCurrentPlayer)] |= 1 << boardSquareIndex;
         n8::Log::Debug(TAG, std::to_string(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)]));
     }
@@ -130,34 +105,37 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
         n8::Log::Debug(TAG, PlayerToString(mCurrentPlayer) + " won!!");
         
         SDL_MessageBoxButtonData button1;
-        button1.text = "Accept";
+        button1.text = "Play Again";
         button1.buttonid = 0;
         button1.flags = 0;
         
         SDL_MessageBoxButtonData button2;
-        button2.text = "Decline";
+        button2.text = "Main Menu";
         button2.buttonid = 1;
         button2.flags = 0;
         
-        SDL_MessageBoxButtonData button3;
-        button3.text = "Cancel";
-        button3.buttonid = 2;
-        button3.flags = 0;
-        
-        SDL_MessageBoxButtonData buttons[3] = {button1,button2,button3};
+        SDL_MessageBoxButtonData buttons[2] = {button1,button2};
         
         SDL_MessageBoxData tmp;
         tmp.buttons = buttons;
-        tmp.numbuttons=3;
-        tmp.title = "Select";
+        tmp.numbuttons=2;
+        tmp.title = "Winner!!";
         tmp.message = "Please Select an Option";
         tmp.window = NULL;
         tmp.flags = 0;
-        tmp.colorScheme = NULL;
+        
+        
+        tmp.colorScheme = nullptr;
         
         int buttonClickedId = -1;
         SDL_ShowMessageBox(&tmp, &buttonClickedId);
-        cout << "The user selected button " << buttonClickedId << endl;
+        if( buttonClickedId == 0 ){
+            ResetGameboard();
+            cout << "0 selected" << endl;
+        }else{
+            cout << "goo" << endl;
+            m_game->StartState(new MainMenu(m_game));
+        }
     }
     
     // Update the current player
@@ -203,4 +181,23 @@ bool GameState::CheckForWinner(short playerBoard){
     }
     
     return false;
+}
+
+void GameState::ResetGameboard(){
+    // Set the starting player
+    mCurrentPlayer = Player::PLAYER1;
+    
+    mPlayerGameBoards[0] = 0;
+    mPlayerGameBoards[1] = 0;
+    
+    int currentIndex = 0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            m_gameBoardButtons[currentIndex]->setClickHandler([this, currentIndex]( ){
+                onBoardSquarePressed(currentIndex);
+            });
+            m_gameBoardButtons[currentIndex]->SetColor(gui::Style::EStyleColor::Button, 50, 50, 250);
+            currentIndex++;
+        }
+    }
 }
