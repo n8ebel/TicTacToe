@@ -45,13 +45,15 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game),m_exitEvent(Test2) {
     GetGUI()->AddElement(m_label);
     
     gui::Dialog::Builder* builder = new gui::Dialog::Builder(window);
+    builder->SetHeight(400);
     builder->SetPositiveButton("Play Again", nullptr);
     builder->SetNegativeButton("Negative", nullptr);
     builder->SetNeutralButton("Neutral", nullptr);
+    builder->SetOnDismissedListener([this](){
+        n8::Log::Debug(TAG, "Dismissed");
+    });
     
     GetGUI()->ShowDialog(builder->SetTitle("title")->Create());
-    
-    m_inputService->RegisterUserInterface(GetGUI());
     
 }
 
@@ -65,22 +67,6 @@ void MainMenu::OnResume(){
     
     //register keyboard commands
     m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
-    
-    
-    
-    //register mouse actions
-    m_inputService->RegisterMouseMoveAction( [this](int x, int y){
-        GetGUI()->CheckMove(x,y);
-    });
-    
-    m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
-        GetGUI()->CheckClickUp(x, y);
-        
-    });
-    
-    m_inputService->RegisterMouseButtonDownAction( [this](int x, int y){
-        GetGUI()->CheckClickDown(x, y);
-    });
     
 //start music
 
@@ -110,10 +96,8 @@ void MainMenu::Render(n8::Window* p_window){
     if ( background != nullptr){
         m_renderService->Draw(background, -20, -20, 680, 620);
     }
-    
-    GetGUI()->Draw(p_window);
    
-    m_renderService->PostToScreen();  //draw everything to the screen
+    State::Render(p_window);
     
 }
 

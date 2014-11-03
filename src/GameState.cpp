@@ -45,8 +45,6 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
         m_gameBoardButtons[i]->SetColor(gui::Style::EStyleColor::Button, 250, 250, 0);
     }
     
-    m_inputService->RegisterUserInterface(GetGUI());
-    
     // Set the starting player
     mCurrentPlayer = Player::PLAYER1;
     
@@ -64,18 +62,6 @@ GameState::~GameState(){
 void GameState::OnResume(){
     //Register input commands
     m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
-    
-    m_inputService->RegisterMouseMoveAction([this](int x, int y){
-        GetGUI()->CheckMove(x, y);
-    });
-    
-    m_inputService->RegisterMouseButtonUpAction( [this](int x, int y){
-        GetGUI()->CheckClickUp(x, y);
-    });
-    
-    m_inputService->RegisterMouseButtonDownAction( [this](int x, int y){
-        GetGUI()->CheckClickDown(x, y);
-    });
 }
 void GameState::OnPause(){
     m_inputService->UnregisterMouseButtonDownAction();
@@ -90,20 +76,13 @@ void GameState::Render(n8::Window* p_window){
     m_renderService->SetDrawingColor(0, 255, 0, 255);  //set background color
     m_renderService->ColorBackground();  //color the background
     
-    GetGUI()->Draw(p_window);
-    
-    m_renderService->PostToScreen();  //draw everything to the screen
+    State::Render(p_window);
     
 }
 
-void GameState::CreateSystems(){
-    //SystemManager::GetInstance()->RegisterSystem(RENDER_SYSTEM, new RenderSystem());
-}
+void GameState::CreateSystems(){ }
 
-void GameState::CreateEntities(){
-    
-    
-}
+void GameState::CreateEntities(){ }
 
 void GameState::onBoardSquarePressed(int boardSquareIndex){
     n8::Log::Debug(TAG, "Board Square " + to_string(boardSquareIndex) + " was pressed by " + PlayerToString(mCurrentPlayer));
