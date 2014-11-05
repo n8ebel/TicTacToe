@@ -44,17 +44,6 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game),m_exitEvent(Test2) {
     GetGUI()->AddElement(m_button1);
     GetGUI()->AddElement(m_label);
     
-    gui::Dialog::Builder* builder = new gui::Dialog::Builder(window);
-    builder->SetHeight(400);
-    builder->SetPositiveButton("Play Again", nullptr);
-    builder->SetNegativeButton("Negative", nullptr);
-    builder->SetNeutralButton("Neutral", nullptr);
-    builder->SetOnDismissedListener([this](){
-        n8::Log::Debug(TAG, "Dismissed");
-    });
-    
-    GetGUI()->ShowDialog(builder->SetTitle("title")->Create());
-    
 }
 
 MainMenu::~MainMenu(){
