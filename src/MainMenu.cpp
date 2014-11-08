@@ -34,7 +34,7 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game),m_exitEvent(Test2) {
     //build user interface
     m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
-    m_button1 = new gui::Button(window, "playButton","Play", 230,440,160,40, [this](){
+    m_button1 = new gui::Button(window, "playButton","Play", 180,370,160,40, [this](){
         m_game->StartState(new GameState(m_game));
     });
     

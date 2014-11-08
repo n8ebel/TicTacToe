@@ -96,18 +96,14 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
         
         gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
         builder->SetHeight(300);
-        builder->SetPositiveButton("Play Again", [this](){
+        builder->SetPositiveButton("Play Again", 120, 40, [this](){
             ResetGameboard();
         });
-        builder->SetNegativeButton("Menu", [this](){
+        builder->SetNegativeButton("Menu", 120, 40, [this](){
             m_game->EndState();
         });
-        builder->SetNeutralButton("Neutral", nullptr);
-        builder->SetOnDismissedListener([this](){
-            n8::Log::Debug(TAG, "Dismissed");
-        });
         
-        GetGUI()->ShowDialog(builder->SetTitle("title")->Create());
+        GetGUI()->ShowDialog(builder->SetTitle(PlayerToString(mCurrentPlayer) + " won!!")->Create());
     }
     
     // Update the current player
