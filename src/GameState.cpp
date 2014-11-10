@@ -94,7 +94,7 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
     if(CheckForWinner(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)])){
         n8::Log::Debug(TAG, PlayerToString(mCurrentPlayer) + " won!!");
         
-        gui::Dialog::Builder* builder = new gui::Dialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+        gui::AlertDialog::Builder* builder = new gui::AlertDialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
         builder->SetHeight(300);
         builder->SetPositiveButton("Play Again", 120, 40, [this](){
             ResetGameboard();

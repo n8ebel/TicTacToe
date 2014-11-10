@@ -30,12 +30,31 @@ MainMenu::MainMenu(n8::Game* game) : n8::State(game),m_exitEvent(Test2) {
     CreateEntities();
     
     n8::Window* window = const_cast<n8::Window*>(m_renderService->GetWindow());
-    
+
     //build user interface
     m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
     
-    m_button1 = new gui::Button(window, "playButton","Play", 180,370,160,40, [this](){
-        m_game->StartState(new GameState(m_game));
+    std::string playerName;
+    
+    m_button1 = new gui::Button(window, "playButton","Play", 180,370,160,40, [this, &playerName](){
+        gui::InputDialog::Builder builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+        builder.SetTitle("Enter Your Name");
+        builder.SetHintText("Enter name...");
+        builder.SetHeight(300);
+        builder.SetPositiveButton("Enter", 120, 40, nullptr);
+        builder.SetOnDismissListener([&](gui::Dialog::EResultCode result){
+            if (result == gui::Dialog::EResultCode::POSITIVE){
+                m_game->StartState(new GameState(m_game));
+            }
+        });
+
+        gui::InputDialog* inputDialog = (gui::InputDialog*) builder.Create();
+        inputDialog->SetOnPositiveClickedListener([inputDialog](){
+            cout << inputDialog->GetX() << endl;
+            inputDialog->GetInput();
+        });
+        
+        GetGUI()->ShowDialog(inputDialog);
     });
     
     m_label = new gui::Label(window, "label", "Tic Tac Toe", 350,0);
