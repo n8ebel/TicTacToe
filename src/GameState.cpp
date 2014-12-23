@@ -11,7 +11,7 @@
 
 #define TAG "Game State"
 
-GameState::GameState(n8::Game* game) : n8::State(game) {
+GameState::GameState(shared_ptr<n8::Game> game) : n8::State(game) {
     
     
     CreateSystems();
@@ -21,14 +21,14 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
     
     m_renderService = game->getRenderService();
     
-    n8::Window* window = const_cast<n8::Window*>(m_renderService->GetWindow());
+    auto window = static_pointer_cast<n8::Window>(m_game->getWindow());
     
-    m_font = (n8::Font*)(game->getResourceManager()->GetResource("stocky24"));
+    auto font = game->getResourceManager()->GetFont("stocky24");
     
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            m_gameBoardButtons[currentIndex] = new gui::Button(window,
+            m_gameBoardButtons[currentIndex] = std::make_shared<gui::Button>(m_game->getWindow(),
                                                                "button"+to_string(currentIndex), " ",
                                                                100+100*j+j*10,
                                                                100+100*i+i*10,
@@ -44,29 +44,28 @@ GameState::GameState(n8::Game* game) : n8::State(game) {
 }
 
 GameState::~GameState(){
-    State::~State();
+    std::cout << "Game State Destructor called" << endl;
 }
 
 
 
 void GameState::OnResume(){
     //Register input commands
-    m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){m_game->EndState();});
+    m_inputService->RegisterKeyDownAction(SDLK_ESCAPE, [this](){
+        std::cout << "pressed GameState escape button" << std::endl;
+        m_game->EndState();});
 }
 void GameState::OnPause(){
     m_inputService->UnregisterMouseButtonDownAction();
     m_inputService->UnregisterMouseButtonUpAction();
 }
 
-void GameState::Update(Uint32 currentTime){
-    GetGUI()->Update(currentTime);
-}
-void GameState::Render(n8::Window* p_window){
+void GameState::Update(Uint32 currentTime){ State::Update(currentTime); }
+
+void GameState::Render(){
+    m_renderService->ColorBackground(0, 255, 0);  //color the background
     
-    m_renderService->SetDrawingColor(0, 255, 0, 255);  //set background color
-    m_renderService->ColorBackground();  //color the background
-    
-    State::Render(p_window);
+    State::Render();
     
 }
 
@@ -94,12 +93,14 @@ void GameState::onBoardSquarePressed(int boardSquareIndex){
     if(CheckForWinner(mPlayerGameBoards[static_cast<int>(mCurrentPlayer)])){
         n8::Log::Debug(TAG, PlayerToString(mCurrentPlayer) + " won!!");
         
-        gui::AlertDialog::Builder* builder = new gui::AlertDialog::Builder(const_cast<n8::Window*>(m_renderService->GetWindow()));
+        gui::AlertDialog::Builder* builder = new gui::AlertDialog::Builder(static_pointer_cast<n8::Window>(m_game->getWindow()));
         builder->SetHeight(300);
         builder->SetPositiveButton("Play Again", 120, 40, [this](){
+            n8::Log::Debug(TAG, "clicked play again button");
             ResetGameboard();
         });
         builder->SetNegativeButton("Menu", 120, 40, [this](){
+            n8::Log::Debug(TAG, "clicked menu button");
             m_game->EndState();
         });
         
@@ -140,9 +141,7 @@ bool GameState::CheckForWinner(short playerBoard){
            (((playerBoard & 1 << 1) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 7) != 0)) ||
            (((playerBoard & 1 << 2) != 0) && ((playerBoard & 1 << 5) != 0) && ((playerBoard & 1 << 8) != 0)) ||
            (((playerBoard & 1 << 0) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 8) != 0)) ||
-           (((playerBoard & 1 << 6) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 2) != 0)) 
-       
-       
+           (((playerBoard & 1 << 6) != 0) && ((playerBoard & 1 << 4) != 0) && ((playerBoard & 1 << 2) != 0))
     )
     {
         return true;
@@ -161,6 +160,10 @@ void GameState::ResetGameboard(){
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
+            if (m_gameBoardButtons[currentIndex] == nullptr) {
+                break;
+            }
+            
             m_gameBoardButtons[currentIndex]->setClickHandler([this, currentIndex]( ){
                 onBoardSquarePressed(currentIndex);
             });

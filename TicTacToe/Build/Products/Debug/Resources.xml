@@ -1,13 +1,7 @@
 <Resources>
     
-    <ImageResources>
-        <Image>goo.jpg<ID>goo</ID></Image>
-        <Image>foo.png<ID>foo</ID></Image>
-        <Image>sayain2.png<ID>sayain2</ID></Image>
-        <Image>menu.png<ID>menu</ID></Image>
-    </ImageResources>
-    
     <TextureResources>
+        <Texture>logo.png<ID>logo</ID></Texture>
         <Texture>sayain2.png<ID>sayainTexture</ID></Texture>
     </TextureResources>
     

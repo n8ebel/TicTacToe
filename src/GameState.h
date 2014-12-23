@@ -15,14 +15,18 @@
 
 class GameState : public n8::State {
 public:
-    GameState(n8::Game* game);
+    GameState(std::shared_ptr<n8::Game> game);
     virtual ~GameState();
+    
+    const std::string GetName() const {
+        return "GameState";
+    }
     
     virtual void OnResume();
     virtual void OnPause();
     
     virtual void Update(Uint32 currentTime);
-    virtual void Render(n8::Window* img);
+    virtual void Render();
     
 private:
     virtual void CreateSystems();
@@ -36,10 +40,8 @@ private:
     std::string PlayerToString(Player);
     void SwitchPlayer();
     
-    n8::InputService* m_inputService;
-    n8::RenderService* m_renderService;
-    
-    n8::Font* m_font;
+    std::shared_ptr<n8::InputService> m_inputService;
+    std::shared_ptr<n8::RenderService> m_renderService;
     
     gui::Button* m_buttonTopLeft;
     gui::Button* m_buttonTopMiddle;
@@ -53,7 +55,7 @@ private:
     gui::Button* m_buttonBottomMiddle;
     gui::Button* m_buttonBottomRight;
     
-    gui::Button* m_gameBoardButtons[9];
+    std::shared_ptr<gui::Button> m_gameBoardButtons[9];
     
     bool CheckForWinner(short);
     void ResetGameboard();
