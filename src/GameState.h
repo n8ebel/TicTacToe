@@ -56,6 +56,7 @@ private:
     gui::Button* m_buttonBottomRight;
     
     std::shared_ptr<gui::Button> m_gameBoardButtons[9];
+    std::shared_ptr<gui::Label> m_label;
     
     bool CheckForWinner(short);
     void ResetGameboard();

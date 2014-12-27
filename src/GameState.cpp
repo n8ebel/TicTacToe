@@ -25,6 +25,9 @@ GameState::GameState(shared_ptr<n8::Game> game) : n8::State(game) {
     
     auto font = game->getResourceManager()->GetFont("stocky24");
     
+    m_label = std::make_shared<gui::Label>(static_pointer_cast<n8::Window>(window), "label", "Player 1", 350, 10);
+    GetGUI()->AddElement(m_label);
+    
     int currentIndex = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -126,11 +129,17 @@ std::string GameState::PlayerToString(Player player){
 }
 
 void GameState::SwitchPlayer(){
+    std::string playerLabel = "Player ";
+    
     if (mCurrentPlayer == Player::PLAYER1) {
         mCurrentPlayer = Player::PLAYER2;
+        playerLabel.append("2");
     }else if(mCurrentPlayer == Player::PLAYER2){
         mCurrentPlayer = Player::PLAYER1;
+        playerLabel.append("1");
     }
+    
+    m_label->SetText(playerLabel);
 }
 
 bool GameState::CheckForWinner(short playerBoard){
