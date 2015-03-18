@@ -10,8 +10,9 @@
 #define GAME_STATE_H
 
 #include <iostream>
-
-#include "Game.h"
+#include "State.h"
+#include "InputService.h"
+#include "RenderService.h"
 
 class GameState : public n8::State {
 public:
@@ -56,6 +57,7 @@ private:
     gui::Button* m_buttonBottomRight;
     
     std::shared_ptr<gui::Button> m_gameBoardButtons[9];
+    std::shared_ptr<gui::Label> m_label;
     
     bool CheckForWinner(short);
     void ResetGameboard();

@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "Game.h"
 #include "MainMenu.h"
 #include "GameValues.h"
 #include "GameState.h"
@@ -37,6 +38,7 @@ MainMenu::MainMenu(shared_ptr<n8::Game> game) : n8::State(game),m_exitEvent(Test
     std::string playerName;
     
     m_button1 = std::make_shared<gui::Button>(static_pointer_cast<n8::Window>(window), "playButton","Play", 180,370,160,40, [this, &playerName](){
+        
         gui::InputDialog::Builder builder(static_pointer_cast<n8::Window>(m_game->getWindow()));
         builder.SetTitle("Enter Your Name");
         builder.SetHintText("Enter name...");

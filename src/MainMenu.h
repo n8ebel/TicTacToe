@@ -14,9 +14,10 @@
 #include <iostream>
 #include <vector>
 
-#include "Game.h"
-
-#include "GameState.h"
+#include "State.h"
+#include "InputService.h"
+#include "RenderService.h"
+#include "AudioService.h"
 
 class Entity;
 
