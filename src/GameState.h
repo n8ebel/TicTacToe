@@ -10,8 +10,9 @@
 #define GAME_STATE_H
 
 #include <iostream>
-
-#include "Game.h"
+#include "State.h"
+#include "InputService.h"
+#include "RenderService.h"
 
 class GameState : public n8::State {
 public:

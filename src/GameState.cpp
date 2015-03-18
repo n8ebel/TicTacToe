@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 n8Tech. All rights reserved.
 //
 
+#include "Game.h"
 #include "GameState.h"
-#include "MainMenu.h"
 
 #define TAG "Game State"
 
@@ -139,7 +139,7 @@ void GameState::SwitchPlayer(){
         playerLabel.append("1");
     }
     
-    m_label->SetText(playerLabel);
+//    m_label->SetText(playerLabel);
 }
 
 bool GameState::CheckForWinner(short playerBoard){

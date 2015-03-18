@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "Game.h"
 #include "MainMenu.h"
 #include "GameValues.h"
 #include "GameState.h"
